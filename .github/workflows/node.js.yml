@@ -26,8 +26,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: Read node from package.json
+      uses: actions/setup-node@v1
       with: 
-        uses: actions/setup-node@v1
         path: "./backend/package.json"
         id: package-node-version
     - run: npm install
