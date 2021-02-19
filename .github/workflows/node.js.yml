@@ -29,10 +29,11 @@ jobs:
       working-directory: ./backend
       run: npm install
     - name: Run backend
-      run: CI=true npm run build
+      run: npm run build&
+      working-directory: ./backend
+    - name: pause
+      run: sleep 5
       working-directory: ./backend
     - name: Run tests
-      run: CI=true npm test
+      run: npm test
       working-directory: ./backend
-      env:
-        CI: ture
