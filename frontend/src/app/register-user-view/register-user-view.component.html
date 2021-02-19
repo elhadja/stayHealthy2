@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+                <div class="form-group">
+                    <label for="email">Adresse email</label>
+                    <input type="email" class="form-control" id="Adresse email" name="email" aria-describedby="emailHelp" ngModel required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" class="form-control" id="password" name="password" ngModel required>
+                </div>
+                <div class="form-group">
+                    <label for="passwordAgain">Entrez à nouveau votre mot de passe</label>
+                    <input type="passwordAgain" class="form-control" id="passwordAgain" name="passwordAgain" ngModel required>
+                </div>
+                <select class="custom-select">
+                    <option selected required>selectionner un type d'utilisateur</option>
+                    <option value="1">Medecin</option>
+                    <option value="2">Patient</option>
+                </select>
+                <br><br>
+               <button type="submit" class="btn btn-primary" [disabled]="f.invalid">valider</button>
+                <p>Vous disponsez déjà d'un compte?&nbsp;<a href="#">Se connecter</a></p> 
+            </form>
+        </div>
+    </div>
+</div>
