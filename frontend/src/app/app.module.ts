@@ -4,19 +4,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { RegisterUserViewComponent } from './register-user-view/register-user-view.component';
+import { RegisterUserViewComponent } from './components/register-user-view/register-user-view.component';
 import { AuthService } from './services/auth.service';
-import { ConnexionViewComponent } from './connexion-view/connexion-view.component';
+import { ConnexionViewComponent } from './components/connexion-view/connexion-view.component';
 import { RouterModule, Routes } from '@angular/router';
-import { DoctorHomeComponent } from './doctor-home/doctor-home.component';
-import { PatientHomeComponent } from './patient-home/patient-home.component';
 
 const routes : Routes = [
   { path: '', component: ConnexionViewComponent },
   { path: 'login', component: ConnexionViewComponent },
   { path: 'signup', component: RegisterUserViewComponent },
-  { path: 'doctorHome', component: DoctorHomeComponent },
-  { path: 'patientHome', component: PatientHomeComponent },
+  { path: 'doctor', loadChildren: () => import('./module/doctor/doctor.module').then(m => m.DoctorModule) },
+  { path: 'patient', loadChildren: () => import('./module/patient/patient.module').then(m => m.PatientModule) },
 ]
 
 @NgModule({
@@ -24,8 +22,6 @@ const routes : Routes = [
     AppComponent,
     RegisterUserViewComponent,
     ConnexionViewComponent,
-    DoctorHomeComponent,
-    PatientHomeComponent
   ],
   imports: [
     BrowserModule,

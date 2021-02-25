@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-connexion-view',
@@ -36,7 +36,7 @@ export class ConnexionViewComponent implements OnInit {
     this.authService.logUserr(formValue['email'], formValue['password'], formValue['userType'])
       .subscribe(
         (data => {
-          const path = formValue['userType']==='medecin' ? '/doctorHome' : '/patientHome';
+          const path = formValue['userType']==='medecin' ? '/doctor' : '/patient';
           this.router.navigate([path]);
         }),
         (error => {
