@@ -1,1 +1,44 @@
-<p>connexion-view works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form [formGroup]="connexionForm" (ngSubmit)="onSubmitForm()">
+                <div class="form-group">
+                    <label for="email">Entrez votre addresse email</label>
+                    <input type="email" class="form-control" name="email" id="email" formControlName="email" required>
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="email.errors.required">
+                            email is required.
+                        </div>
+                        <div *ngIf="email.errors.email">
+                            email is invalid.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Entrez votre password</label>
+                    <input type="password" class="form-control" name="password" id="password" formControlName="password" required>
+                    <div *ngIf="password.invalid && (password.dirty || password.touched)"
+                            class="alert alert-danger">
+                        <div *ngIf="password.errors.required || password.errors.minlength || password.errors.maxlength">
+                            <li>The password is required</li>
+                            <li>The password should contain at least 4 characters</li>
+                            <li>The password should contain at most 12 caractères</li>
+                        </div>
+                    </div>
+                </div>
+                <select class="custom-select" name="userType" formControlName="userType" required>
+                    <option value="" disabled>selectionner un type d'utilisateur</option>
+                    <option value="medecin">Medecin</option>
+                    <option value="patient">Patient</option>
+                </select>
+                <br><br>
+                <div *ngIf="error !== ''" class="alert alert-danger">
+                    {{ error }}
+                </div>
+                <button class="btn btn-primary" type="submit"  [disabled]="connexionForm.invalid">Se connecter</button><br><br>
+                <p>Pas encore de compte? <a routerLink="/signup">Inscrivez-vous</a> </p>
+            </form>
+        </div>
+    </div>
+</div>

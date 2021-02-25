@@ -25,6 +25,20 @@ export class AuthService {
     return this.http.post<any>(url, body, httpOptions);
   }
 
+  logUserr(email, password, userType) {
+    const url = userType==="medecin" ? "http://localhost:3000/doctor/login" : "http://localhost:3000/patient/login";
+    const body = {
+      email: email,
+      password: password,
+    };
+    const httpOptions = {
+      headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      })
+    };
+    return this.http.post<any>(url, body, httpOptions);
+  }
+
   handleError(error: HttpErrorResponse) {
     return throwError(error);
   }
