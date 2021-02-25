@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 
 const doctorSchema = mongoose.Schema({
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
+    firstName: { type: String },
+    lastName: { type: String },
     tel: { type: String },
     address: { road: String, postalCode: Number, city: String },
-    email: { type: String, required: true, unique: true},
+    email: { type: String, required: [true, "email field is required"], unique: [true, "a user with this email already exists"]},
     password: { type: String, required: true },
     speciality: { type: String},
     meansOfPayment: { type: [String] },

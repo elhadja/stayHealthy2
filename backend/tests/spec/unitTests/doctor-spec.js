@@ -65,7 +65,7 @@ describe("register doctor tests: ", () => {
             expect(true).toBe(false);
         } catch(error) {
             expect(error.response.status).toBe(400);
-            const numberOfRequiredItems = 3;
+            const numberOfRequiredItems = 1;
             expect(Object.keys(error.response.data.error.errors).length).toBe(numberOfRequiredItems);
         }
     });

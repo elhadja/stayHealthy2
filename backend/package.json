@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index.js" ,
     "build": "node index.js",
     "test": "npx jasmine tests/spec/unitTests/*.js"
   },

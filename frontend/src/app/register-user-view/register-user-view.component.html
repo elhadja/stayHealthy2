@@ -4,24 +4,56 @@
             <form (ngSubmit)="onSubmit(f)" #f="ngForm">
                 <div class="form-group">
                     <label for="email">Adresse email</label>
-                    <input type="email" class="form-control" id="Adresse email" name="email" aria-describedby="emailHelp" ngModel required>
+                    <input type="email" class="form-control" id="email" name="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required ngModel #email="ngModel">
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)"
+                            class="alert alert-danger">
+                        <small *ngIf="email.errors.required">
+                            Ce champs est obligatoire
+                        </small>
+                        <div *ngIf="email.errors.pattern">
+                            Adresse email invalide
+                        </div>
+                  </div>
                 </div>
                 <div class="form-group">
                     <label for="password">Mot de passe</label>
-                    <input type="password" class="form-control" id="password" name="password" ngModel required>
+                    <input type="password" class="form-control" id="password" name="password" required minlength="8" maxlength="12" ngModel #password="ngModel">
+                    <div *ngIf="password.invalid && (password.dirty || password.touched)"
+                            class="alert alert-danger">
+                        <div *ngIf="password.errors.required">
+                            Ce champs est obligatoire
+                            {{ passwordV }}
+                        </div>
+                        <div *ngIf="password.errors.minlength">
+                            Le mot de passe doit contenir au moins 8 caractères
+                        </div>
+                   </div>
                 </div>
                 <div class="form-group">
                     <label for="passwordAgain">Entrez à nouveau votre mot de passe</label>
-                    <input type="passwordAgain" class="form-control" id="passwordAgain" name="passwordAgain" ngModel required>
+                    <input type="password" class="form-control" id="passwordAgain" name="passwordAgain" AppSame="1===1" #passwordAgain="ngModel" ngModel required>
+                    <div *ngIf="passwordAgain.invalid && (passwordAgain.dirty || passwordAgain.touched)"
+                            class="alert alert-danger">
+                        <div *ngIf="passwordAgain.errors.required">
+                            Ce champs est obligatoire
+                        </div>
+                    </div>
+                    <div *ngIf="passwordAgain.value !== password.value && passwordAgain.value !== ''"
+                          class="alert alert-danger">
+                        Les mots de passe sont differents
+                    </div>
                 </div>
-                <select class="custom-select">
-                    <option selected required>selectionner un type d'utilisateur</option>
-                    <option value="1">Medecin</option>
-                    <option value="2">Patient</option>
+                <select class="custom-select" name="userType" required ngModel>
+                    <option value="" disabled>selectionner un type d'utilisateur</option>
+                    <option value="medecin">Medecin</option>
+                    <option value="patient">Patient</option>
                 </select>
-                <br><br>
+               <br><br>
+               <div *ngIf="error !== ''" class="alert alert-danger">
+                   {{ error }}
+               </div>
                <button type="submit" class="btn btn-primary" [disabled]="f.invalid">valider</button>
-                <p>Vous disponsez déjà d'un compte?&nbsp;<a href="#">Se connecter</a></p> 
+                <p>Vous disponsez déjà d'un compte?&nbsp;<a routerLink="/login">Se connecter</a></p> 
             </form>
         </div>
     </div>

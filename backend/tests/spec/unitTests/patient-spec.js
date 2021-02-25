@@ -11,32 +11,6 @@ const body = {
  
 
 describe("register patient tests: ", () => {
-    /*
-    const urlBase = "http://localhost:3000";
-    let patientLoginResponse;
-    let addPatientResponse;
-    let patientHeader = {};
-
-    beforeAll(async () => {
-        try {
-            addPatientResponse = await axios.post(patientEndPoint, body);
-            patientLoginResponse = await axios.post(patientEndPoint + "/login", {
-                email: body.email,
-                password: body.password
-            });
-            patientHeader.headers = { Authorization: `Bearer ${patientLoginResponse.data.token}`};
-
-        } catch(error) {
-            fail(error);
-        }
- 
-    });
-
-    afterAll(async () => {
-        await user.deletePatient(addPatientResponse);
-    });
-    */
-
     it("patient should be added", async () => {
         let createPatientResponse;
         let header;
@@ -71,7 +45,7 @@ describe("register patient tests: ", () => {
             fail();
         } catch(error) {
             expect(error.response.status).toBe(400);
-            const numberOfRequiredItems = 3;
+            const numberOfRequiredItems = 1;
             expect(Object.keys(error.response.data.error.errors).length).toBe(numberOfRequiredItems);
         }
     });

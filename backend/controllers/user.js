@@ -70,8 +70,10 @@ exports.signup = async (req, res, UserModel) => {
             .then((savedUser) => res.status(201).json({
                 message: "user created", id: savedUser._id
             }))
-            .catch(error => {
-                res.status(400).json({error: error});
+            .catch((error) => {
+                res.status(400).json({
+                    message: error.errors.email.message,
+                });
             });
     } catch (error) {
         res.status(400).json({error: "password field is required"});

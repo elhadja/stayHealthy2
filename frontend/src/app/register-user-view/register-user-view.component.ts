@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 
@@ -9,21 +10,30 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./register-user-view.component.css']
 })
 export class RegisterUserViewComponent implements OnInit {
-  email : string;
-  password : string;
-  passwordAgain : string;
-
-  constructor(private authService: AuthService) { }
+  error : string = '';
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
   onSubmit(form: NgForm) {
-    console.log("formulaire soumis");
-    const email = form.value['email'];
-    const password = form.value['password'];
-    
-    this.authService.registerUser(email, password, "patient").subscribe();
+      const email = form.value['email'];
+      const password = form.value['password'];
+      const userType = form.value['userType'];
+      
+      const res = this.authService.registerUser(email, password, userType)
+      .subscribe(
+        () => {
+          this.router.navigate(['/login']);
+        },
+        (error) => {
+          this.error = error.error.message;
+        }
+      );
+  }
+
+  isValidForm(form: NgForm) {
+    const userType = form.value['userType'];
   }
 
 }

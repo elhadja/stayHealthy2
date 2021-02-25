@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
@@ -12,27 +12,20 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   registerUser(email: String, password: String, userType: String) {
-    const url = "http://localhost:3000/doctor";
+    const url = userType==="medecin" ? "http://localhost:3000/doctor" : "http://localhost:3000/patient";
     const body = {
       email: email,
       password: password,
-      firstName: "bah",
-      lastName: "bahhhhhhhh"
     };
     const httpOptions = {
       headers: new HttpHeaders({
       'Content-Type':  'application/json',
       })
     };
-
-
-    return this.http.post<any>(url, body, httpOptions)
-          .pipe(
-            catchError(this.handleError)
-          );
+    return this.http.post<any>(url, body, httpOptions);
   }
 
-  handleError(error: String) {
+  handleError(error: HttpErrorResponse) {
     return throwError(error);
   }
 }
