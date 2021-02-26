@@ -8,6 +8,8 @@ import { RegisterUserViewComponent } from './components/register-user-view/regis
 import { AuthService } from './services/auth.service';
 import { ConnexionViewComponent } from './components/connexion-view/connexion-view.component';
 import { RouterModule, Routes } from '@angular/router';
+import { PatientService } from './services/patient.service';
+import { DoctorService } from './services/doctor.service';
 
 const routes : Routes = [
   { path: '', component: ConnexionViewComponent },
@@ -32,6 +34,8 @@ const routes : Routes = [
   ],
   providers: [
     AuthService,
+    PatientService,
+    DoctorService
   ],
   bootstrap: [AppComponent]
 })

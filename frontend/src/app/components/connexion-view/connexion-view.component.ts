@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Doctor } from 'src/app/model/doctor';
+import { Patient } from 'src/app/model/patient';
+import { DoctorService } from 'src/app/services/doctor.service';
+import { PatientService } from 'src/app/services/patient.service';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -16,6 +20,8 @@ export class ConnexionViewComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
+              private patientService: PatientService,
+              private doctorService: DoctorService,
               private router: Router) { }
 
   ngOnInit(): void {
@@ -37,6 +43,15 @@ export class ConnexionViewComponent implements OnInit {
       .subscribe(
         (data => {
           const path = formValue['userType']==='medecin' ? '/doctor' : '/patient';
+          if (formValue['userType'] === 'medecin') {
+            this.doctorService.token = data.token;
+            this.doctorService.user = new Doctor(formValue['email'], formValue['password']);
+            this.doctorService.user.id = data.id;
+          }else {
+            this.patientService.token = data.token;
+            this.patientService.user = new Patient(formValue['email'], formValue['password']);
+            this.patientService.user.id = data.id;
+          }
           this.router.navigate([path]);
         }),
         (error => {
