@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Patient } from '../model/patient';
 
@@ -8,5 +9,6 @@ export class DoctorService {
   public user: Patient;
   public token: String;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
 }

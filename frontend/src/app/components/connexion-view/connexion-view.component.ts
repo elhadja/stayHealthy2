@@ -30,8 +30,8 @@ export class ConnexionViewComponent implements OnInit {
 
   initForm() {
     this.connexionForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(12)]],
+      email: ['elhadjp1@gmail.com', [Validators.required, Validators.email]],
+      password: ['aaaaaaaaaa', [Validators.required, Validators.minLength(8), Validators.maxLength(12)]],
       userType: ['', Validators.required]
     });
   }
@@ -43,6 +43,7 @@ export class ConnexionViewComponent implements OnInit {
       .subscribe(
         (data => {
           const path = formValue['userType']==='medecin' ? '/doctor' : '/patient';
+          this.authService.isAuth = true;
           if (formValue['userType'] === 'medecin') {
             this.doctorService.token = data.token;
             this.doctorService.user = new Doctor(formValue['email'], formValue['password']);
@@ -51,6 +52,7 @@ export class ConnexionViewComponent implements OnInit {
             this.patientService.token = data.token;
             this.patientService.user = new Patient(formValue['email'], formValue['password']);
             this.patientService.user.id = data.id;
+            this.patientService.loadPatientInfos();
           }
           this.router.navigate([path]);
         }),

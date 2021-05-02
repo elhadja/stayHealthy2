@@ -1,0 +1,59 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+    <!-- search form -->
+    <div class="row">
+        <div class="col-12">
+            <form class="example-form d-flex justify-content-center">
+                <mat-form-field class="example-full-width">
+                    <input type="text"
+                        placeholder="medecin"
+                        aria-label="Number"
+                        matInput
+                        [formControl]="nameCriteriaControl"
+                        [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of options1" [value]="option">
+                        {{option}}
+                    </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+                <mat-divider hori></mat-divider>
+                <mat-form-field class="example-full-width">
+                    <input type="text"
+                        placeholder="localité"
+                        aria-label="Number"
+                        matInput
+                        [formControl]="localityCriteriaControl"
+                        [matAutocomplete]="auto2">
+                    <mat-autocomplete #auto2="matAutocomplete">
+                    <mat-option *ngFor="let option of options2" [value]="option">
+                        {{option}}
+                    </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+                <button mat-button (click)="search()">chercher</button>
+            </form>
+        </div>
+    </div>
+    <!-- search result -->
+    <div class="row">
+        <div class="col-6">
+            <div *ngFor="let doctor of doctors" class="d-flex bg-light justify-content-between mb-3">
+                <div>
+                    <h4>Dr {{ doctor.firstName }} {{ doctor.lastName }}</h4>
+                    <p> {{ doctor.speciality }} </p>
+                    <p>
+                        {{doctor.address.road}} <br>
+                        {{doctor.address.postalCode}} <br>
+                        {{doctor.address.city}} <br>
+                    </p>
+                    <button>Prendre rendez-vous</button>
+                </div>
+                <app-calendar [doctorId]="doctor.id"></app-calendar>
+            </div>
+        </div>
+        <div class="col-6">
+
+        </div>
+    </div>
+</div>

@@ -10,13 +10,17 @@ import { ConnexionViewComponent } from './components/connexion-view/connexion-vi
 import { RouterModule, Routes } from '@angular/router';
 import { PatientService } from './services/patient.service';
 import { DoctorService } from './services/doctor.service';
+import { AuthGuardService } from './services/auth-guard.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DoctorApiService } from './api/doctorApi.service';
+import { SlotApiService } from './api/slot-api.service';
 
 const routes : Routes = [
   { path: '', component: ConnexionViewComponent },
   { path: 'login', component: ConnexionViewComponent },
   { path: 'signup', component: RegisterUserViewComponent },
-  { path: 'doctor', loadChildren: () => import('./module/doctor/doctor.module').then(m => m.DoctorModule) },
-  { path: 'patient', loadChildren: () => import('./module/patient/patient.module').then(m => m.PatientModule) },
+  { path: 'doctor', canActivate: [AuthGuardService],loadChildren: () => import('./module/doctor/doctor.module').then(m => m.DoctorModule) },
+  { path: 'patient', canActivate: [AuthGuardService],loadChildren: () => import('./module/patient/patient.module').then(m => m.PatientModule) },
 ]
 
 @NgModule({
@@ -30,12 +34,16 @@ const routes : Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    BrowserAnimationsModule,
   ],
   providers: [
     AuthService,
+    AuthGuardService,
     PatientService,
-    DoctorService
+    DoctorService,
+    DoctorApiService,
+    SlotApiService
   ],
   bootstrap: [AppComponent]
 })

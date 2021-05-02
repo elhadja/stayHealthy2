@@ -5,6 +5,7 @@ export class User {
     public firstName: String;
     public lastName: String;
     public address: Address;
+    public tel: String;
 
     constructor(public email: String, public password: String) {
        this.email = email;

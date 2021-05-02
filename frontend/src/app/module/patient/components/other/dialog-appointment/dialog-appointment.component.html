@@ -1,0 +1,64 @@
+<mat-dialog-content id="dialog" class="d-flex justify-content-left">
+  <mat-list>
+  <mat-list-item>
+    <mat-icon matListIcon aria-hidden="false" aria-label="Example home icon">perm_identity</mat-icon>
+    <p matLine>
+      Dr {{ doctor.firstName }} {{ doctor.lastName }}
+    </p>
+    <p matLine>
+      {{ doctor.speciality }}
+    </p>
+  </mat-list-item>
+
+  <mat-list-item>
+    <mat-icon matListIcon aria-hidden="false" aria-label="Example home icon">perm_identity</mat-icon>
+    <p matLine>
+      Nom du patient
+    </p>
+    <p matLine>
+      {{ patient.firstName }} {{ patient.lastName }}
+    </p>
+  </mat-list-item>
+
+  <mat-divider></mat-divider>
+  <mat-list-item>
+    <mat-icon matListIcon aria-hidden="false" aria-label="Example home icon">perm_phone_msg</mat-icon>
+    <p matLine>
+      <span class="demo-2"> Numéro de téléphone </span>
+    </p>
+    <p matLine>
+      <span class="demo-2"> {{ patient.tel }} </span>
+    </p>
+  </mat-list-item>
+
+  <mat-divider></mat-divider>
+  <mat-list-item>
+    <mat-icon matListIcon aria-hidden="false" aria-label="Example home icon">commute</mat-icon>
+    <p matLine>
+      <span class="demo-2"> Se rendre au rendez-vous </span>
+    </p>
+    <p matLine>
+      <span class="demo-2"> {{ doctor.address.road }} </span>
+    </p>
+    <p matLine>
+      <span class="demo-2"> {{ doctor.address.postalCode }} </span>
+    </p>
+    <p matLine>
+      <span class="demo-2"> {{ doctor.address.city }} </span>
+    </p>
+  </mat-list-item>
+  <mat-list-item>
+    <mat-icon matListIcon aria-hidden="false" aria-label="Example home icon">perm_phone_msg</mat-icon>
+    <p matLine>
+      <span class="demo-2"> Moyens de paiements </span>
+    </p>
+    <p matLine *ngFor="payment of doctor.meansOfPayment">
+      <span class="demo-2"> payment </span>
+    </p>
+    <p *ngIf="doctor.meansOfPayment.length === 0" matLine>Aucun moyen de paiment n'a été spécifié</p>
+  </mat-list-item>
+</mat-list>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

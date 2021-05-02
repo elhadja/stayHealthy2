@@ -1,0 +1,17 @@
+<div class="d-flex">
+    <div *ngFor="let date of dates; let i = index; let first = first; let last = last" class="m-1">
+        <p class="d-flex">
+            <mat-icon class="move" *ngIf="i===0" (click)="before()" [ngClass]="{forbidden: lastDay===6}">navigate_before</mat-icon>
+            <span>
+                {{date.dayString}} <br>
+                {{date.dayNumber}} &nbsp; {{date.month}}
+            </span>
+            <mat-icon class="move" *ngIf="i===5" (click)="next()">navigate_next</mat-icon>
+        </p>
+        <ul class="list-group">
+            <li *ngFor="let slot of getSlotsByDay(date)"  class="list-group-item">
+                {{slot.startHour.hh}}:{{slot.startHour.mn}}
+            </li>
+        </ul>
+    </div>
+</div>

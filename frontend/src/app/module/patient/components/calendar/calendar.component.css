@@ -1,0 +1,7 @@
+.move {
+    cursor: pointer;
+}
+
+.forbidden {
+    cursor:not-allowed;
+}
